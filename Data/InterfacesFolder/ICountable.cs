@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace DAL
 {
-    public class Beverage : PerishableProduct
+    public interface ICountable
     {
+        public int Count { get; set; }
     }
 }
