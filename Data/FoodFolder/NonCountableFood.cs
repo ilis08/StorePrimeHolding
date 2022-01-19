@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.InterfacesFolder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class NonCountableFood : Food
+    public class NonCountableFood : Food, INonCountable
     {
-        public NonCountableFood(string name, string brand, decimal price, DateOnly creationDate, decimal weight) : base(name, brand, price, creationDate)
+        public NonCountableFood(string name, string brand, decimal price, DateTime creationDate, decimal weight) : base(name, brand, price, creationDate)
         {
             Weight = weight;
         }

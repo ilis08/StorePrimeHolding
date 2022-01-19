@@ -1,4 +1,5 @@
 ﻿using BLL;
+using BLL.CashierFolder;
 using DAL;
 
 namespace ConsoleClient;
@@ -9,6 +10,8 @@ public class Program
     {
         Cashier cashier = new Cashier();
 
-        cashier.PrintReceipt(Cart.Products);
+        Cart cart = new Cart();
+
+        cashier.PrintReceipt(cart.Products);
     }
 }

@@ -8,15 +8,15 @@ namespace DAL
 {
     public abstract class Food : PerishableProduct
     {
-        public Food(string name, string brand, decimal price, DateOnly creationDate) : base(name, brand, price, creationDate)
+        public Food(string name, string brand, decimal price, DateTime creationDate) : base(name, brand, price, creationDate)
         {
         }
 
-        protected override DateOnly GenerateExpirationDate(DateOnly creationDate)
+        protected override DateTime GenerateExpirationDate(DateTime creationDate)
         {
             Random random = new Random();
 
-            DateOnly expirationDate = creationDate.AddDays(random.Next(8, 30));
+            DateTime expirationDate = creationDate.AddDays(random.Next(8, 30));
 
             return expirationDate;
         }

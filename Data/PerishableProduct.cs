@@ -8,17 +8,17 @@ namespace DAL
 {
     public abstract class PerishableProduct : Product
     {
-        public PerishableProduct(string name, string brand, decimal price, DateOnly creationDate) : base(name, brand, price)
+        public PerishableProduct(string name, string brand, decimal price, DateTime creationDate) : base(name, brand, price)
         {
             CreationDate = creationDate;
-            ExpirationDate = creationDate;
+            ExpirationDate = GenerateExpirationDate(CreationDate);
         }
 
-        public DateOnly CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
-        public DateOnly ExpirationDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
 
-        protected abstract DateOnly GenerateExpirationDate(DateOnly creationDate);
+        protected abstract DateTime GenerateExpirationDate(DateTime creationDate);
 
         /*protected static DateOnly GenerateExpirationDate(DateOnly creationDate)
         {

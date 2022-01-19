@@ -8,7 +8,7 @@ namespace DAL
 {
     public class Beverage : PerishableProduct, ICountable
     {
-        public Beverage(string name, string brand, decimal price, DateOnly creationDate, int count) : base(name, brand, price, creationDate)
+        public Beverage(string name, string brand, decimal price, DateTime creationDate, int count) : base(name, brand, price, creationDate)
         {
             Count = count;
         }
@@ -22,11 +22,11 @@ namespace DAL
             Console.WriteLine($"{Count} x {string.Format($"{moneyFormat}", Price)} = {string.Format($"{moneyFormat}", Price * Count)}");
         }
 
-        protected override DateOnly GenerateExpirationDate(DateOnly creationDate)
+        protected override DateTime GenerateExpirationDate(DateTime creationDate)
         {
             Random random = new Random();
 
-            DateOnly expirationDate = creationDate.AddDays(random.Next(15, 100));
+            var expirationDate = creationDate.AddDays(random.Next(15, 100));
 
             return expirationDate;
         }

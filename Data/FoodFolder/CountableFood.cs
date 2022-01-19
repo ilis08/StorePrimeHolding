@@ -8,7 +8,7 @@ namespace DAL
 {
     public class CountableFood : Food, ICountable
     {
-        public CountableFood(string name, string brand, decimal price, DateOnly creationDate, int count) : base(name, brand, price, creationDate)
+        public CountableFood(string name, string brand, decimal price, DateTime creationDate, int count) : base(name, brand, price, creationDate)
         {
             Count = count;
         }
