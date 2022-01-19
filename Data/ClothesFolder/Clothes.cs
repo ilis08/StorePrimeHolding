@@ -25,7 +25,7 @@ namespace DAL
         {
             Console.WriteLine($"\n{String.Join(" | ", Name, Brand, Size, Color)}");
 
-            Console.WriteLine($"{Count} x {string.Format($"{moneyFormat}", Price)} = {string.Format($"{moneyFormat}", Price * Count)}");
+            Console.WriteLine($"{Count} x {string.Format($"{TextFormatters.moneyFormat}", Price)} = {string.Format($"{TextFormatters.moneyFormat}", Price * Count)}");
         }
     }
 

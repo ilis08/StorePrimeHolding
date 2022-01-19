@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ICountable
     {
         public int Count { get; set; }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace BLL.DiscountCheckerFolder
 {
+    /// <summary>
+    /// Class contains methods for determining a discount for product.
+    /// </summary>
     public class DiscountChecker : IDiscountChecker
     {
         public int CheckDiscount(Product product)
@@ -15,19 +18,19 @@ namespace BLL.DiscountCheckerFolder
 
             if (product is Food || product is Beverage)
             {
-                return CheckPerishableProductDiscount((PerishableProduct)product);
+                return GetPerishableProductDiscount((PerishableProduct)product);
             }
             else if (product is Clothes)
             {
-                return CheckClothes((Clothes)product);
+                return GetClothesDiscount((Clothes)product);
             }
             else
             {
-                return CheckAppliances((Appliance)product);
+                return GetAppliancesDiscount((Appliance)product);
             }
         }
 
-        private int CheckPerishableProductDiscount(PerishableProduct product)
+        private int GetPerishableProductDiscount(PerishableProduct product)
         {
             var days = product.ExpirationDate.Subtract(DateTime.UtcNow);
 
@@ -47,7 +50,7 @@ namespace BLL.DiscountCheckerFolder
             }
         }
 
-        private int CheckClothes(Clothes clothes)
+        private int GetClothesDiscount(Clothes clothes)
         {
             var day = DateTime.Today.DayOfWeek;
 
@@ -61,7 +64,7 @@ namespace BLL.DiscountCheckerFolder
             }
         }
 
-        private int CheckAppliances(Appliance appliance)
+        private int GetAppliancesDiscount(Appliance appliance)
         {
             var day = DateTime.Today.DayOfWeek;
 

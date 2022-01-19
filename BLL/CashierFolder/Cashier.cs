@@ -20,12 +20,24 @@ namespace BLL.CashierFolder
 
         private decimal discountTotal = 0;
 
-        public void PrintReceipt(List<Product> products)
+        public void PrintReceipt(List<Product> products, DateTime timeOfPurchase)
         {
-            Console.WriteLine($"Date : {DateTime.UtcNow}");
+            Console.WriteLine($"Date : {timeOfPurchase.ToString(TextFormatters.dateTimeFormatter)}");
 
             Console.WriteLine("\n---------------------Products-------------------------");
 
+            PrintInfo(products);
+
+            Console.WriteLine("\n--------------------------------------------------------");
+
+            Console.WriteLine($"SUBTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products))}");
+            Console.WriteLine($"DISCOUNT: -{string.Format(TextFormatters.moneyFormat, discountTotal)}");
+
+            Console.WriteLine($"\nTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products) - discountTotal)}");
+        }
+
+        private void PrintInfo(List<Product> products)
+        {
             foreach (Product product in products)
             {
                 product.Info();
@@ -38,16 +50,9 @@ namespace BLL.CashierFolder
 
                     discountTotal += discValue;
 
-                    Console.WriteLine($"#discount {discount}% -{string.Format(Product.moneyFormat, discValue)}");
+                    Console.WriteLine($"#discount {discount}% -{string.Format(TextFormatters.moneyFormat, discValue)}");
                 }
             }
-
-            Console.WriteLine("\n--------------------------------------------------------");
-
-            Console.WriteLine($"SUBTOTAL: {string.Format(Product.moneyFormat, Cart.GetTotalSum(products))}");
-            Console.WriteLine($"DISCOUNT: -{string.Format(Product.moneyFormat, discountTotal)}");
-
-            Console.WriteLine($"\nTOTAL: {string.Format(Product.moneyFormat, Cart.GetTotalSum(products) - discountTotal)}");
         }
     }
 }

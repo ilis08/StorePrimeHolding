@@ -8,8 +8,6 @@ namespace DAL
 {
     public abstract class Product
     {
-        public const string moneyFormat = "{0:$#,##0.00;($#,##0.00);Zero}";
-
         public Product(string name, string brand, decimal price)
         {
             Name = name;

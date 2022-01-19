@@ -8,10 +8,6 @@ public class Program
 {
     public static void Main()
     {
-        Cashier cashier = new Cashier();
-
-        Cart cart = new Cart();
-
-        cashier.PrintReceipt(cart.Products);
+        StoreSession.Start();
     }
 }

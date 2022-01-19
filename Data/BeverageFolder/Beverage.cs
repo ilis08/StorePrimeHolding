@@ -19,7 +19,7 @@ namespace DAL
         {
             Console.WriteLine("\n" + string.Join(" | ", Name, Brand));
 
-            Console.WriteLine($"{Count} x {string.Format($"{moneyFormat}", Price)} = {string.Format($"{moneyFormat}", Price * Count)}");
+            Console.WriteLine($"{Count} x {string.Format($"{TextFormatters.moneyFormat}", Price)} = {string.Format($"{TextFormatters.moneyFormat}", Price * Count)}");
         }
 
         protected override DateTime GenerateExpirationDate(DateTime creationDate)

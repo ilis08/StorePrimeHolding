@@ -19,14 +19,5 @@ namespace DAL
         public DateTime ExpirationDate { get; set; }
 
         protected abstract DateTime GenerateExpirationDate(DateTime creationDate);
-
-        /*protected static DateOnly GenerateExpirationDate(DateOnly creationDate)
-        {
-            Random random = new Random();
-
-            DateOnly expirationDate = creationDate.AddDays(random.Next(8, 30));
-
-            return expirationDate;
-        }*/
     }
 }

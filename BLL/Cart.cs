@@ -10,27 +10,10 @@ namespace BLL
 {
     public class Cart
     {
-        public static decimal GetTotalSum(List<Product> products)
-        {
-            decimal total = 0;
-
-            foreach (var product in products)
-            {
-                if (product is ICountable countableProd)
-                {
-                    total += product.Price * countableProd.Count;
-                }
-                else if(product is INonCountable nonCountableProd)
-                {
-                    total += product.Price * nonCountableProd.Weight;
-                }
-            }
-
-            return total;
-        }
-
         public void AddToCart(Product product)
         {
+            ArgumentNullException.ThrowIfNull(product);
+
             Products.Add(product);
         }
 
@@ -38,10 +21,9 @@ namespace BLL
         {
             var product = Products.FirstOrDefault(x => x.Name == productName);
 
-            if (product != null)
-            {
-                Products.Remove(product);
-            }            
+            ArgumentNullException.ThrowIfNull(product);
+
+            Products.Remove(product);          
         }
 
         public List<Product> Products = new()

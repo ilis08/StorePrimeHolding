@@ -9,6 +9,6 @@ namespace BLL.CashierFolder
 {
     public interface ICashier
     {
-        public void PrintReceipt(List<Product> products);
+        public void PrintReceipt(List<Product> products, DateTime timeOfPurchase);
     }
 }

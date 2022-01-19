@@ -21,7 +21,7 @@ namespace DAL
         {
             Console.WriteLine("\n" + string.Join(" | ", Name, Brand));
 
-            Console.WriteLine($"{string.Format("{0:f3}", Weight)} x {string.Format($"{moneyFormat}", Price)} = {string.Format($"{moneyFormat}", Price * Weight)}");
+            Console.WriteLine($"{string.Format("{0:f3}", Weight)} x {string.Format($"{TextFormatters.moneyFormat}", Price)} = {string.Format($"{TextFormatters.moneyFormat}", Price * Weight)}");
         }
     }
 }

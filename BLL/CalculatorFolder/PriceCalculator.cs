@@ -10,6 +10,39 @@ namespace BLL.CalculatorFolder
 {
     public static class PriceCalculator 
     {
+        /// <summary>
+        /// Return total price for all products in a List.
+        /// </summary>
+        /// <param name="products"></param>
+        /// <returns></returns>
+        public static decimal GetTotalSum(List<Product> products)
+        {
+            decimal total = 0;
+
+            foreach (var product in products)
+            {
+                ArgumentNullException.ThrowIfNull(product);
+
+                if (product is ICountable countableProd)
+                {
+                    total += product.Price * countableProd.Count;
+                }
+                else if (product is INonCountable nonCountableProd)
+                {
+                    total += product.Price * nonCountableProd.Weight;
+                }
+            }
+
+            return total;
+        }
+
+        /// <summary>
+        /// Return discount amount for a concrete Product.
+        /// </summary>
+        /// <param name="discount"></param>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         public static decimal CalculateWithDiscount(int discount, Product product)
         {
             if (product is ICountable countableProduct)
@@ -32,7 +65,7 @@ namespace BLL.CalculatorFolder
             {
                 throw new NotImplementedException();
             }
-           
+          
         }
     }
 }
