@@ -15,11 +15,13 @@ namespace DAL
 
         public int Count { get; set; }
 
-        public override void Info()
+        public override StringBuilder Info()
         {
-            Console.WriteLine("\n" + string.Join(" | ", Name, Brand));
+            info.Append($"\n{String.Join(" | ", Name, Brand)}");
 
-            Console.WriteLine($"{Count} x {string.Format($"{TextFormatters.moneyFormat}", Price)} = {string.Format($"{TextFormatters.moneyFormat}", Price * Count)}");
+            info.Append($"\n{Count} x {string.Format($"{TextFormatters.moneyFormat}", Price)} = {string.Format($"{TextFormatters.moneyFormat}", Price * Count)}");
+
+            return info;
         }
 
         protected override DateTime GenerateExpirationDate(DateTime creationDate)

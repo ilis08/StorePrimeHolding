@@ -1,5 +1,6 @@
 ﻿using BLL.CalculatorFolder;
 using BLL.DiscountCheckerFolder;
+using BLL.ReceiptFolder;
 using DAL;
 using System;
 using System.Collections.Generic;
@@ -12,35 +13,39 @@ namespace BLL.CashierFolder
     public class Cashier : ICashier
     {
         IDiscountChecker checker;
+        IReceiptWorker receiptWorker;
 
         public Cashier()
         {
             checker = new DiscountChecker();
+            receiptWorker = new ReceiptWorker();
         }
 
         private decimal discountTotal = 0;
 
-        public void PrintReceipt(List<Product> products, DateTime timeOfPurchase)
+        public void CreateReceipt(List<Product> products, DateTime timeOfPurchase)
         {
-            Console.WriteLine($"Date : {timeOfPurchase.ToString(TextFormatters.dateTimeFormatter)}");
+            receiptWorker.AddText($"Date : {timeOfPurchase.ToString(TextFormatters.dateTimeFormatter)}");
 
-            Console.WriteLine("\n---------------------Products-------------------------");
+            receiptWorker.AddText("\n---------------------Products-------------------------");
 
             PrintInfo(products);
 
-            Console.WriteLine("\n--------------------------------------------------------");
+            receiptWorker.AddText("\n--------------------------------------------------------");
 
-            Console.WriteLine($"SUBTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products))}");
-            Console.WriteLine($"DISCOUNT: -{string.Format(TextFormatters.moneyFormat, discountTotal)}");
+            receiptWorker.AddText($"SUBTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products))}");
+            receiptWorker.AddText($"DISCOUNT: -{string.Format(TextFormatters.moneyFormat, discountTotal)}");
 
-            Console.WriteLine($"\nTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products) - discountTotal)}");
+            receiptWorker.AddText($"\nTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products) - discountTotal)}");
+
+            Console.WriteLine(receiptWorker.PrintCheck());
         }
 
         private void PrintInfo(List<Product> products)
         {
             foreach (Product product in products)
             {
-                product.Info();
+                receiptWorker.AddText(product.Info());
 
                 var discount = checker.CheckDiscount(product);
 
@@ -50,7 +55,7 @@ namespace BLL.CashierFolder
 
                     discountTotal += discValue;
 
-                    Console.WriteLine($"#discount {discount}% -{string.Format(TextFormatters.moneyFormat, discValue)}");
+                    receiptWorker.AddText($"#discount {discount}% -{string.Format(TextFormatters.moneyFormat, discValue)}");
                 }
             }
         }

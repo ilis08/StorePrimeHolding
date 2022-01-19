@@ -8,6 +8,8 @@ namespace DAL
 {
     public abstract class Product
     {
+        protected StringBuilder info  = new();
+
         public Product(string name, string brand, decimal price)
         {
             Name = name;
@@ -21,6 +23,6 @@ namespace DAL
 
         public decimal Price { get; set; }
 
-        public abstract void Info();
+        public abstract StringBuilder Info();
     }
 }

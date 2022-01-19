@@ -21,11 +21,13 @@ namespace DAL
 
         public int Count { get; set; }
 
-        public override void Info()
+        public override StringBuilder Info()
         {
-            Console.WriteLine($"\n{String.Join(" | ", Name, Brand, Size, Color)}");
+            info.Append($"\n{String.Join(" | ", Name, Brand, Size, Color)}");
 
-            Console.WriteLine($"{Count} x {string.Format($"{TextFormatters.moneyFormat}", Price)} = {string.Format($"{TextFormatters.moneyFormat}", Price * Count)}");
+            info.Append($"\n{Count} x {string.Format($"{TextFormatters.moneyFormat}", Price)} = {string.Format($"{TextFormatters.moneyFormat}", Price * Count)}");
+
+            return info;
         }
     }
 

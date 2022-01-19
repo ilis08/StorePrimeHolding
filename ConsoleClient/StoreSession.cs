@@ -16,7 +16,7 @@ namespace ConsoleClient
 
             Cart cart = new Cart();
 
-            cashier.PrintReceipt(cart.Products, DateTime.Now);
+            cashier.CreateReceipt(cart.Products, DateTime.Now);
         }
     }
 }

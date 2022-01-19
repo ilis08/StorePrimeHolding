@@ -17,11 +17,13 @@ namespace DAL
         //Weight in kilo
         public decimal Weight { get; set; }
 
-        public override void Info()
+        public override StringBuilder Info()
         {
-            Console.WriteLine("\n" + string.Join(" | ", Name, Brand));
+            info.Append($"\n{string.Join(" | ", Name, Brand)}");
 
-            Console.WriteLine($"{string.Format("{0:f3}", Weight)} x {string.Format($"{TextFormatters.moneyFormat}", Price)} = {string.Format($"{TextFormatters.moneyFormat}", Price * Weight)}");
+            info.Append($"{string.Format("\n{0:f3}", Weight)} x {string.Format($"{TextFormatters.moneyFormat}", Price)} = {string.Format($"{TextFormatters.moneyFormat}", Price * Weight)}");
+
+            return info;
         }
     }
 }
