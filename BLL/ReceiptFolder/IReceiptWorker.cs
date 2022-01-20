@@ -15,14 +15,17 @@ namespace BLL.ReceiptFolder
         /// Using FileStream create new receipt.txt and fills it with info
         /// </summary>
         /// <param name="text"></param>
-        public void SaveReceipt(StringBuilder text);
-
-        public StringBuilder PrintCheck();
+        public Task SaveReceiptAsync(StringBuilder text);
+        /// <summary>
+        /// Return receipt text
+        /// </summary>
+        /// <returns></returns>
+        public StringBuilder ReturnReceipt();
         /// <summary>
         /// Method search for a receipt file and return if exist
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public string ReturnReceipt(string fileName);
+        public Task<string> ReturnReceiptAsync(string fileName);
     }
 }

@@ -23,7 +23,7 @@ namespace ConsoleClient
 
             cashier.CreateReceipt(cart.Products, DateTime.Now);
 
-            Console.WriteLine(receiptWorker.ReturnReceipt("check132871052114884440.txt"));
+            Console.WriteLine(receiptWorker.ReturnReceiptAsync("check132871736778282401.txt").Result);
         }
     }
 }

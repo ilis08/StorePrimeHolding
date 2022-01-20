@@ -9,7 +9,7 @@ namespace BLL.ReceiptFolder
     public class ReceiptWorker : IReceiptWorker
     {
         private StringBuilder receiptText = new StringBuilder();
-        private string path = @$"C:\StorePrimeHolding\BLL\Receipts"; // Path for saving .txt receipts
+        private const string path = @$"C:\StorePrimeHolding\BLL\Receipts"; // Path for saving .txt receipts
 
         public void AddText(string text)
         {
@@ -25,9 +25,9 @@ namespace BLL.ReceiptFolder
             receiptText.AppendFormat($"\n{text}");
         }
 
-        public StringBuilder PrintCheck()
+        public StringBuilder ReturnReceipt()
         {
-            SaveReceipt(receiptText);
+            Task.Run(() => SaveReceiptAsync(receiptText));// Save receipt to file
 
             return receiptText;
         }
@@ -36,22 +36,24 @@ namespace BLL.ReceiptFolder
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public string ReturnReceipt(string fileName)
+        public async Task<string> ReturnReceiptAsync(string fileName)
         {
             string textFromFile = "";
 
             try
             {
-                using (FileStream fs = File.OpenRead(@$"{path}\{fileName}"))
+                textFromFile = await File.ReadAllTextAsync($@"{path}\{fileName}");
+
+                /*using (FileStream fs = File.OpenRead(@$"{path}\{fileName}"))
                 {
                     byte[] array = new byte[fs.Length];
 
-                    fs.Read(array, 0, array.Length);
+                    await fs.ReadAsync(array, 0, array.Length);
 
-                    textFromFile = System.Text.Encoding.Default.GetString(array);
-                }
+                    textFromFile = Encoding.Default.GetString(array);
+                }*/
             }
-            catch (FileNotFoundException)
+            catch (FileNotFoundException ex)
             {
                 Console.WriteLine("\n--------------------------------");
 
@@ -71,7 +73,7 @@ namespace BLL.ReceiptFolder
         /// Using FileStream create new receipt.txt and fills it with info
         /// </summary>
         /// <param name="text"></param>
-        public void SaveReceipt(StringBuilder text)
+        public async Task SaveReceiptAsync(StringBuilder text)
         {
             try
             {
@@ -79,7 +81,7 @@ namespace BLL.ReceiptFolder
                 {
                     byte[] info = new UTF8Encoding(true).GetBytes(text.ToString());
                     // Add some information to the file.
-                    fs.Write(info, 0, info.Length);
+                    await fs.WriteAsync(info, 0, info.Length);
                 }
             }
             catch (Exception)

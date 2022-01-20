@@ -23,6 +23,9 @@ namespace BLL.CashierFolder
             receiptWorker = new ReceiptWorker();
         }
 
+        /// <summary>
+        /// Event for action at the expiration date of product
+        /// </summary>
         public event OnProductsExpiredEventHandler ProductsExpired;
 
         private decimal discountTotal = 0;
@@ -42,9 +45,9 @@ namespace BLL.CashierFolder
                 receiptWorker.AddText($"SUBTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products))}");
                 receiptWorker.AddText($"DISCOUNT: -{string.Format(TextFormatters.moneyFormat, discountTotal)}");
 
-                receiptWorker.AddText($"\nTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products) - discountTotal)}");
+                receiptWorker.AddText($"\nTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products) - discountTotal)}\n");
 
-                Console.WriteLine(receiptWorker.PrintCheck());
+                Console.WriteLine(receiptWorker.ReturnReceipt());
             }
             catch (Exception)
             {
@@ -60,7 +63,7 @@ namespace BLL.CashierFolder
         {
             ArgumentNullException.ThrowIfNull(products);
 
-            List<Product> productsForRemoving = new();
+            List<Product> productsForRemoving = new();// It's a collection where i keep the expiration products that should be removed from Cart
 
             try
             {

@@ -1,0 +1,26 @@
+
+Date : 2022-01-20 19:39:46
+
+---------------------Products-------------------------
+
+T-shirt | Nike | M | Red
+5 x $100,00 = $500,00
+#discount 10% -$50,00
+
+Fanta | Coca-Cola
+2 x $5,00 = $10,00
+
+MacBook Air 2021 | Apple Inc. | MacBook
+4 x $2 000,00 = $8 000,00
+
+Apple | Envy
+2,320 x $8,00 = $18,56
+
+Philadelphia cheese | Kraft Heinz
+3 x $15,00 = $45,00
+
+--------------------------------------------------------
+SUBTOTAL: $8 573,56
+DISCOUNT: -$50,00
+
+TOTAL: $8 523,56
