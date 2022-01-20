@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DAL.InterfacesFolder
 {
+    /// <summary>
+    /// Interface for non-countable products
+    /// </summary>
     public interface INonCountable
     {
         public decimal Weight { get; set; }

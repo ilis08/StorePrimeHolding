@@ -1,6 +1,5 @@
 
-
-Date : 2022-01-20 0:33:10
+Date : 2022-01-20 13:08:24
 
 ---------------------Products-------------------------
 
@@ -16,13 +15,13 @@ MacBook Air 2021 | Apple Inc. | MacBook
 
 Apple | Envy
 2,320 x $8,00 = $18,56
+#discount 10% -$1,86
 
 Philadelphia cheese | Kraft Heinz
 3 x $15,00 = $45,00
-#discount 10% -$4,50
 
 --------------------------------------------------------
 SUBTOTAL: $8 573,56
-DISCOUNT: -$54,50
+DISCOUNT: -$51,86
 
-TOTAL: $8 519,06
+TOTAL: $8 521,70

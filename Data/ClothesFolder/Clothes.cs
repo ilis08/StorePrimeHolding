@@ -8,7 +8,7 @@ namespace DAL
 {
     public class Clothes : Product, ICountable
     {
-        public Clothes(string name, string brand, decimal price,string color, Size size, int count) : base(name, brand, price)
+        public Clothes(string name, string brand, decimal price, string color, Size size, int count) : base(name, brand, price)
         {
             Color = color;
             Size = size;

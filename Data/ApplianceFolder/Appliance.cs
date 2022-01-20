@@ -19,7 +19,7 @@ namespace DAL
         public string Model { get; set; }
 
         public DateOnly ProductionDate { get; set; }
-   
+
         public int Weight { get; set; }
 
         public int Count { get; set; }

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace BLL.CashierFolder
 {
+    public delegate void OnProductsExpiredEventHandler(List<Product> products);
+
     public class Cashier : ICashier
     {
         IDiscountChecker checker;
@@ -21,43 +23,98 @@ namespace BLL.CashierFolder
             receiptWorker = new ReceiptWorker();
         }
 
+        public event OnProductsExpiredEventHandler ProductsExpired;
+
         private decimal discountTotal = 0;
 
         public void CreateReceipt(List<Product> products, DateTime timeOfPurchase)
         {
-            receiptWorker.AddText($"Date : {timeOfPurchase.ToString(TextFormatters.dateTimeFormatter)}");
+            try
+            {
+                receiptWorker.AddText($"Date : {timeOfPurchase.ToString(TextFormatters.dateTimeFormatter)}");
 
-            receiptWorker.AddText("\n---------------------Products-------------------------");
+                receiptWorker.AddText("\n---------------------Products-------------------------");
 
-            PrintInfo(products);
+                PrintInfo(products);
 
-            receiptWorker.AddText("\n--------------------------------------------------------");
+                receiptWorker.AddText("\n--------------------------------------------------------");
 
-            receiptWorker.AddText($"SUBTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products))}");
-            receiptWorker.AddText($"DISCOUNT: -{string.Format(TextFormatters.moneyFormat, discountTotal)}");
+                receiptWorker.AddText($"SUBTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products))}");
+                receiptWorker.AddText($"DISCOUNT: -{string.Format(TextFormatters.moneyFormat, discountTotal)}");
 
-            receiptWorker.AddText($"\nTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products) - discountTotal)}");
+                receiptWorker.AddText($"\nTOTAL: {string.Format(TextFormatters.moneyFormat, PriceCalculator.GetTotalSum(products) - discountTotal)}");
 
-            Console.WriteLine(receiptWorker.PrintCheck());
+                Console.WriteLine(receiptWorker.PrintCheck());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Cannot create a receipt");
+            }
         }
 
+        /// <summary>
+        /// Method print info and calculate discount for all product in List
+        /// </summary>
+        /// <param name="products"></param>
         private void PrintInfo(List<Product> products)
         {
-            foreach (Product product in products)
+            ArgumentNullException.ThrowIfNull(products);
+
+            List<Product> productsForRemoving = new();
+
+            try
             {
-                receiptWorker.AddText(product.Info());
-
-                var discount = checker.CheckDiscount(product);
-
-                if (discount > 0)
+                foreach (var product in products)
                 {
-                    var discValue = PriceCalculator.CalculateWithDiscount(discount, product);
+                    if (product is not null)
+                    {
+                        receiptWorker.AddText(product.Info());
 
-                    discountTotal += discValue;
+                        try
+                        {
+                            var discount = checker.CheckDiscount(product);
 
-                    receiptWorker.AddText($"#discount {discount}% -{string.Format(TextFormatters.moneyFormat, discValue)}");
+                            if (discount > 0)
+                            {
+                                var discValue = PriceCalculator.CalculateWithDiscount(discount, product);
+
+                                discountTotal += discValue;
+
+                                receiptWorker.AddText($"#discount {discount}% -{string.Format(TextFormatters.moneyFormat, discValue)}");
+                            }
+                        }
+                        catch (PerishableProductException ex)
+                        {
+                            productsForRemoving.Add(product);
+                            receiptWorker.AddText($"Product {product.Name} is expired for {Math.Abs(ex.ExpireDays)} days and cannot be bought");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Product is null");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (products.Any())
+                {
+                    OnProductsExpired(productsForRemoving);
+                }
+            }
+        }
+
+        protected virtual void OnProductsExpired(List<Product> p)
+        {
+            if (ProductsExpired != null)
+            {
+                ProductsExpired(p);
             }
         }
     }
 }
+

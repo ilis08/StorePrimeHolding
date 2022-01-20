@@ -1,5 +1,6 @@
 ﻿using BLL;
 using BLL.CashierFolder;
+using BLL.ReceiptFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,15 @@ namespace ConsoleClient
         {
             ICashier cashier = new Cashier();
 
+            IReceiptWorker receiptWorker = new ReceiptWorker();
+
             Cart cart = new Cart();
 
+            cashier.ProductsExpired += cart.GetNotificationFromCashier;
+
             cashier.CreateReceipt(cart.Products, DateTime.Now);
+
+            Console.WriteLine(receiptWorker.ReturnReceipt("check132871052114884440.txt"));
         }
     }
 }

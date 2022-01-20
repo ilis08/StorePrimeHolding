@@ -34,19 +34,23 @@ namespace BLL.DiscountCheckerFolder
         {
             var days = product.ExpirationDate.Subtract(DateTime.UtcNow);
 
-            switch (days.Days)
+            var result = Math.Ceiling(days.TotalDays);
+
+            if (result > 5)
             {
-                case > 10:
-                    return 0;
-                case > 1:
-                    return 10;
-                case 1:
-                    return 50;
-                case < 0:
-                    return 0;
-                default:
-                    return 0;
-                    
+                return 0;
+            }
+            else if (result <= 5 && result > 1)
+            {
+                return 10;
+            }
+            else if (result == 1)
+            {
+                return 50;
+            }
+            else
+            {
+                throw new PerishableProductException(result, product);
             }
         }
 

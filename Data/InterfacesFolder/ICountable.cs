@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DAL
 {
     /// <summary>
-    /// 
+    /// Interface for countable products
     /// </summary>
     public interface ICountable
     {

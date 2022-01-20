@@ -17,6 +17,8 @@ namespace BLL.CalculatorFolder
         /// <returns></returns>
         public static decimal GetTotalSum(List<Product> products)
         {
+            ArgumentNullException.ThrowIfNull(products);
+
             decimal total = 0;
 
             foreach (var product in products)

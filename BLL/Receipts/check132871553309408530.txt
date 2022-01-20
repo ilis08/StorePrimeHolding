@@ -1,5 +1,5 @@
 
-Date : 2022-01-20 0:33:20
+Date : 2022-01-20 14:28:24
 
 ---------------------Products-------------------------
 
@@ -9,19 +9,21 @@ T-shirt | Nike | M | Red
 
 Fanta | Coca-Cola
 2 x $5,00 = $10,00
+Product Fanta is expired for 5 days and cannot be bought
 
 MacBook Air 2021 | Apple Inc. | MacBook
 4 x $2 000,00 = $8 000,00
 
 Apple | Envy
 2,320 x $8,00 = $18,56
+Product Apple is expired for 1 days and cannot be bought
 
 Philadelphia cheese | Kraft Heinz
 3 x $15,00 = $45,00
-#discount 10% -$4,50
+Product Philadelphia cheese is expired for 1 days and cannot be bought
 
 --------------------------------------------------------
-SUBTOTAL: $8 573,56
-DISCOUNT: -$54,50
+SUBTOTAL: $8 500,00
+DISCOUNT: -$50,00
 
-TOTAL: $8 519,06
+TOTAL: $8 450,00

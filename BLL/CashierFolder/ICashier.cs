@@ -10,5 +10,7 @@ namespace BLL.CashierFolder
     public interface ICashier
     {
         public void CreateReceipt(List<Product> products, DateTime timeOfPurchase);
+
+        public event OnProductsExpiredEventHandler ProductsExpired;
     }
 }
