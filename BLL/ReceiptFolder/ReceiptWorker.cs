@@ -43,17 +43,8 @@ namespace BLL.ReceiptFolder
             try
             {
                 textFromFile = await File.ReadAllTextAsync($@"{path}\{fileName}");
-
-                /*using (FileStream fs = File.OpenRead(@$"{path}\{fileName}"))
-                {
-                    byte[] array = new byte[fs.Length];
-
-                    await fs.ReadAsync(array, 0, array.Length);
-
-                    textFromFile = Encoding.Default.GetString(array);
-                }*/
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException )
             {
                 Console.WriteLine("\n--------------------------------");
 
