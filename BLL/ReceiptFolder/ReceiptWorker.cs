@@ -27,7 +27,7 @@ namespace BLL.ReceiptFolder
 
         public StringBuilder ReturnReceipt()
         {
-            Task.Run(() => SaveReceiptAsync(receiptText));// Save receipt to file
+            Task.Run(() => SaveReceiptAsync(receiptText));// Save receipt to file in asynchronous manner
 
             return receiptText;
         }

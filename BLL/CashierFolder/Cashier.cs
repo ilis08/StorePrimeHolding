@@ -104,7 +104,8 @@ namespace BLL.CashierFolder
             }
             finally
             {
-                if (products.Any())
+                // If productsForRemoving contains items, remove it from Cart
+                if (productsForRemoving.Any())
                 {
                     OnProductsExpired(productsForRemoving);
                 }
