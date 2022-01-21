@@ -68,6 +68,11 @@ namespace BLL.ReceiptFolder
         {
             try
             {
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
                 using (FileStream fs = File.Create(@$"{path}\check{DateTime.Now.ToFileTime()}.txt"))
                 {
                     byte[] info = new UTF8Encoding(true).GetBytes(text.ToString());
